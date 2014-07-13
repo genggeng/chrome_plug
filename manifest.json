@@ -5,7 +5,8 @@
     "description": "copy文章并发布插件",
     "background": {
         "scripts": [
-            "js/background.js"
+            "js/background.js",
+            "js/jquery-2.0.0.min.js"
         ]
     },
     "icons": {
@@ -29,6 +30,7 @@
     ],
     "permissions": [
         "contextMenus",
-        "notifications"
+        "notifications",
+        "http://localhost/"
     ]
 }
