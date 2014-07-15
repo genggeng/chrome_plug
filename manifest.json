@@ -4,10 +4,7 @@
     "version": "1.0",
     "description": "copy文章并发布插件",
     "background": {
-        "scripts": [
-            "js/background.js",
-            "js/jquery-2.0.0.min.js"
-        ]
+        "page": "background.html"
     },
     "icons": {
         "16": "images/icon16.png",
@@ -22,6 +19,7 @@
         "default_title": "发布文章插件",
         "default_popup": "popup.html"
     },
+    "options_page": "options.html",
     "content_scripts": [
         {
             "matches": ["*://*/*"],
@@ -29,8 +27,12 @@
         }
     ],
     "permissions": [
+        "tabs",
         "contextMenus",
         "notifications",
-        "http://localhost/"
+        "http://www.lihuazhai.com/"
+    ],
+    "web_accessible_resources": [
+            "images/*.png"
     ]
 }
