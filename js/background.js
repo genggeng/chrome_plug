@@ -89,7 +89,23 @@ var showSubmit = function(){
     }
 }
 
-var resetData = function(){
+var showNotification = function(msg){
+     var options = {
+        type: 'basic', 
+        message: msg,
+        iconUrl: 'images/icon38.png',
+        title: '拷贝文章提示',
+    };
+    chrome.notifications.create('copy-notify', options, function () {});
+    setTimeout(function() {
+        chrome.notifications.clear('copy-notify', function () {});
+    }, 50000);
+}
+
+
+
+var resetData = function(msg){
+    showNotification(msg);
     //还原title，重新添加内容
     chrome.contextMenus.update('tit',{
         'title':'设置标题'
@@ -114,12 +130,18 @@ function toSubmit(){
             timeout: 30000
         }).done(function(msg) {
             console.log(msg);
-            resetData();
+            resetData(msg);
         }).fail(function(jqXHR, textStatus) {
             console.log(textStatus);
         });
     }
 }
+
+
+
+
+
+
 
 
 

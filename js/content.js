@@ -84,9 +84,9 @@
         var value = "";
 
         if (event.shiftKey && event.keyCode == 67) /* Shift + c */
-            raw = true;
-        else if (event.ctrlKey && event.keyCode == 67) /* Ctrl + c */
             raw = false;
+        else if (event.ctrlKey && event.keyCode == 67) /* Ctrl + c */
+            raw = true;
         else
             return;
 
