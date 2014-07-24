@@ -14,6 +14,54 @@ var debug = (function(){
     }
 })();
 
+/*
+ * Set option to value
+ */
+function set(key, val) 
+{ 
+    val = JSON.stringify(val);
+    localStorage.setItem(key, val);
+
+    return val; 
+}
+
+/*
+ * Get option value
+ */
+function get(key, def) 
+{
+    if (key in localStorage)
+        return JSON.parse(localStorage.getItem(key));
+    else
+        return def;
+}
+
+/*
+ * Clean options
+ */
+function clearConfig()
+{
+    localStorage.clear();
+}
+
+/*
+ * Load configuration from local
+ */
+function loadConfig(reset)
+{
+    if (reset)
+        clearConfig();
+
+    return {
+        'ifShow': get('ifShow', true)
+    };
+}
+
+
+var config = loadConfig();
+
+debug(config.ifShow);
+
 chrome.contextMenus.create({
     'type':'normal',
     'title':'设置标题',
@@ -36,7 +84,7 @@ chrome.contextMenus.create({
     'onclick':setContent
 });
 
-var title,summary,content;
+var title,summary,content,ifShow = config.ifShow ? 1 : 0;
 
 function setTitle(info, tab){
     title = info.selectionText;
@@ -126,7 +174,7 @@ function toSubmit(){
         $.ajax({
             url: 'http://www.lihuazhai.com/yizhan/Public/chorme_plug/insert.php',
             type: 'POST',
-            data: {cateId : 2,title : title,summary : summary,content : content,ifShow : 1},
+            data: {cateId : 2,title : title,summary : summary,content : content,ifShow : ifShow},
             timeout: 30000
         }).done(function(msg) {
             console.log(msg);

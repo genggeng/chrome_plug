@@ -12,7 +12,7 @@
     },
 
     "opt_title_name": {
-        "message": "Copy Better选项"
+        "message": "Copy选项"
     },
 
     "feedback": {
@@ -33,6 +33,11 @@
 
     "restore": {
         "message": "恢复"
+    },
+
+
+    "if_show_text": {
+        "message": "复制好的文章是否直接发布"
     },
 
     "opt_copy_on_select": {
