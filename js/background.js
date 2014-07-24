@@ -60,8 +60,6 @@ function loadConfig(reset)
 
 var config = loadConfig();
 
-debug(config.ifShow);
-
 chrome.contextMenus.create({
     'type':'normal',
     'title':'设置标题',
@@ -101,7 +99,8 @@ function setSummary(info, tab){
     showSubmit();
 }
 function setContent(info, tab){
-    console.log("请使用Shift + c复制HTML内容");
+    //console.log("请使用Shift + c复制HTML内容");
+    showNotification("请使用Shift + c复制HTML内容",3000);
 }
 
 
@@ -112,7 +111,8 @@ chrome.extension.onMessage.addListener(
     function(request) {
       switch (request.command) {
         case 'copy':
-            //console.log(request.data);
+            console.log(request.data);
+            showNotification("内容设置成功！",3000);
             content = request.data;
             chrome.contextMenus.update('content',{
                 'title':'内容已设置'
@@ -137,7 +137,8 @@ var showSubmit = function(){
     }
 }
 
-var showNotification = function(msg){
+var showNotification = function(msg,time){
+     var time = time || 5000;
      var options = {
         type: 'basic', 
         message: msg,
@@ -147,13 +148,13 @@ var showNotification = function(msg){
     chrome.notifications.create('copy-notify', options, function () {});
     setTimeout(function() {
         chrome.notifications.clear('copy-notify', function () {});
-    }, 50000);
+    }, time);
 }
 
 
 
 var resetData = function(msg){
-    showNotification(msg);
+    showNotification(msg,5000);
     //还原title，重新添加内容
     chrome.contextMenus.update('tit',{
         'title':'设置标题'
